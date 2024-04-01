@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener | By Aditya</title>    
+    <style>
+        /* Global styles */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Mono', Arial, sans-serif;
+            background-color: rgb(11, 11, 11);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            width: 100%;
+            background-color: rgba(10, 10, 10, 0.5); /* Semi-transparent black */
+            padding: 2px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999; /* Ensure the navbar is above other content */
+            text-align: center;
+        }
+
+        /* Header styles */
+        header {
+            text-align: center;
+            margin-top: 100px;
+            color: #fff;
+            font-size: 2rem;
+            padding: 20px 0;
+        }
+
+        /* Form styles */
+        form {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input {
+            padding: 12px;
+            margin-bottom: 20px;
+            width: 60%;
+            border: 1px solid #555;
+            border-radius: 40px;
+            box-sizing: border-box;
+            background-color: #222;
+            transition: all 0.35s ease;
+            color: #fff;
+        }
+
+        input:focus {
+            border-radius: 20px;
+            border-color: #007bff;
+            width: 65%;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #036cdd;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #007bff;
+            box-shadow: 0 0 0.5em rgba(0, 123, 255, 0.5);
+        }
+
+        /* Table styles */
+        .center-table {
+            width: 80%;
+            max-width: 800px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: -1px 0.5px 3px 0px rgb(226, 226, 226);
+            background-color: rgba(98, 98, 98, 0.702); /* translucent white */
+            backdrop-filter: blur(8px); /* apply blur effect */
+        }
+
+        th, td {
+            border: 1px solid #333;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        /* Dark mode toggle button styles */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+        }
+
+        /* Dark mode icon styles */
+        .dark-mode-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        body.dark-mode{
+            background-color: rgb(248, 248, 248);
+            color: black
+        }
+
+        body.dark-mode header{
+            color: black
+        }
+
+        body.dark-mode table{
+            box-shadow: -1px 0.5px 3px 0px rgb(24, 24, 24);
+        }
+
+        body.dark-mode input{
+            border: 1px solid #000cf9;
+        }
+
+        body.dark-mode .dark-mode-icon{
+            color: #fff;
+        }
+        body.dark-mode .dark-mode-toggle{
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <img style="margin-top: 3px;" src="https://github.com/adityatakharya/Personal-Portfolio/blob/main/assets/images/logo.png?raw=true" width="140" alt="Logo">
+
+    </nav>
+
+    <header>Welcome to URL Shortener by Aditya</header>
+    
+    <form method="POST" action="/url">
+        <input style="margin-top: 20px; margin-bottom: 35px;" type="text" name="url" placeholder="Enter the URL" required>
+        <button style="margin-bottom: 50px;" type="submit">Generate Short Version</button>
+    </form>
+
+    <div class="center-table">
+        <table>
+            <tr>
+                <th>Original URL</th>
+                <th>Shortened URL</th>
+                <th>Clicks</th>
+            </tr>
+            <% if (locals.urls != null) { %>
+                <% urls.forEach(currData => { %>
+                    <tr>
+                        <td><%= currData.originalURL %></td>
+                        <td><%= currData.shortenedURL %></td>
+                        <td><%= currData.visitHistory.length %></td>
+                    </tr>
+                <% }); %>
+            <% } %>
+        </table>
+    </div>
+
+    <!-- Dark mode toggle button -->
+    <button class="dark-mode-toggle" id="darkModeToggle">
+        <div class="dark-mode-icon">&#9790;</div>
+    </button>
+
+    <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>

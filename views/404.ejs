@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 404 - Page Not Found</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3d2a3Ruc3JyNWtuaWl3bW02bDRhY2g4cW55MDdmZjBsdDY2cnNwOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pM029t1YcR0aY/giphy.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        a.btn{
+            border: 1.2px solid #007bff;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0060c7;
+
+        }
+
+        .btn-div{
+            margin-top: 40px;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #fff;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover{
+            background-color: #333;
+            box-shadow: 0 0 0.5em rgba(0, 123, 255, 0.5);
+            color: #fff;
+        }
+
+
+        /* Dark mode icon styles */
+        .dark-mode-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        body.dark-mode{
+            background-image: url('https://media2.giphy.com/media/YOcgV1jq5ZZQc/200.webp?cid=ecf05e479o9456smyx3c7o1ed6wt35x26bm9j01dxlz48us9&ep=v1_gifs_related&rid=200.webp&ct=g');
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Error 404</h1>
+        <p>Sorry, the page you are looking for does not exist.</p>
+        <hr style="color: white">
+        <div class="btn-div">
+            <a href="/url" class="btn">Go To Home</a>
+        </div>
+    </div>
+
+    <button class="dark-mode-toggle" id="darkModeToggle">
+        <div class="dark-mode-icon">&#9790;</div>
+    </button>
+
+    <script>
+        // Dark mode toggle functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+        });
+    </script>
+</body>
+</html>
