@@ -1,2 +1,4 @@
 # short-url-generator
-Beginner MERN Project - Generates Short URL along with keeping track of all the URLs generated plus linking them to the user who generated it. Provides the feature of SignUp and LogIn using email adress and password to users.
+Beginner MERN Project - Generates Short URL. Stores the generated URLs information linking them with the profile of users. Allows secure SignUp and LogIn.
+
+Deployed Website (Working): https://short-url-generator-3x9n.onrender.com/url/
